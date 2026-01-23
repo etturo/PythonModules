@@ -6,9 +6,9 @@ def ft_plot_area():
     print(f"Totale area: {length * width}")
 
 
-def main():
-    ft_plot_area()
+# def main():
+#     ft_plot_area()
 
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()
