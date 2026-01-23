@@ -53,8 +53,6 @@ def main():
     print(f"{tomato.name.capitalize()} is rich in {tomato.nutritional_value}")
 
 
-
-
 if __name__ == "__main__":
     print("=== Garden Plant Types ===\n")
     main()
