@@ -17,6 +17,10 @@ def main():
     plants.append(Plant("oak", 5, 90))
     plants.append(Plant("sunflower", 80, 45))
     plants.append(Plant("fern", 15, 120))
+    i = 0
+    for plant in plants:
+        i += 1
+    print(f"\nTotal plants created: {i}")
 
 
 if __name__ == "__main__":
