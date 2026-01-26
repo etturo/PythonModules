@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 def ft_count_harvest_iterative():
     print("Days until harvest: ", end="")
     days = int(input())
@@ -6,9 +7,5 @@ def ft_count_harvest_iterative():
     print("Harvest time!")
 
 
-# def main():
-#     ft_count_harvest_iterative()
-
-
 # if __name__ == "__main__":
-#     main()
+#     ft_count_harvest_iterative()

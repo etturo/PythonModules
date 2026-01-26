@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 def ft_plant_age():
     print("Enter the age in days: ", end="")
     age = int(input())
@@ -7,8 +8,5 @@ def ft_plant_age():
         print("Plant need more time to grow")
 
 
-# def main():
-#     ft_plant_age()
-
 # if __name__ == "__main__":
-#     main()
+#     ft_plant_age()

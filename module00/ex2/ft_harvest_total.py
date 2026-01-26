@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 def ft_harvest_total():
     print("Day 1 harvest: ", end="")
     total = int(input())
@@ -8,8 +9,5 @@ def ft_harvest_total():
     print(f"Total harvest: {total}")
 
 
-# def main():
-#     ft_harvest_total()
-
 # if __name__ == "__main__":
-#     main()
+#     ft_harvest_total()

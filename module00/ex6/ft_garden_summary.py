@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 def ft_garden_summary():
     name = input("Enter garden name: ")
     plants = input("Enter number of plants: ")
@@ -6,9 +7,5 @@ def ft_garden_summary():
     print("Status: Growing well!")
 
 
-# def main():
-#     ft_garden_summary()
-
-
 # if __name__ == "__main__":
-#     main()
+#     ft_garden_summary()

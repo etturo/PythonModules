@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 def ft_plot_area():
     print('Enter length: ', end="")
     length = int(input())
@@ -6,9 +7,5 @@ def ft_plot_area():
     print(f"Totale area: {length * width}")
 
 
-# def main():
-#     ft_plot_area()
-
-
 # if __name__ == "__main__":
-#     main()
+#     ft_plot_area()
