@@ -44,54 +44,71 @@ class GardenManager:
 
     @classmethod
     def print_stat(cls) -> None:
-        cls.GardenStats.get_stats(cls.garden_list)
+        print(f"{cls.GardenStats.get_stats(cls.garden_list)}")
 
     class GardenStats:
         @staticmethod
-        def get_stats(garden_list: list):
+        def get_stats(garden_list: list) -> None:
             for garden in garden_list:
                 print(f"\nPlants in {garden.owner_name.upper()}'s garden:")
                 for plant in garden.plant_list:
-                    attr = GardenManager.GardenStats.get_plant_attr(plant)
+                    attr = GardenManager.GardenStats.print_plant_attr(plant)
                     print(f"- {attr}")
-            print(f"Total garden managed: {len(garden_list)}\n")
+            return (f"Total garden managed: {len(garden_list)}\n")
 
         @staticmethod
-        def get_plant_attr(plant: Plant) -> str:
-            if isinstance(plant, PrizeFlower):
+        def print_plant_attr(plant: Plant) -> str:
+            if plant.__class__ == PrizeFlower:
                 return (f"{plant.name}: {plant.height}cm, "
                         f"{plant.age} days old, "
                         f"the flower is {plant.color} {plant.is_bloom()}, "
                         f"Prize points: {plant.prize_points}")
-            elif isinstance(plant, FloweringPlant):
+            elif plant.__class__ == FloweringPlant:
                 return (f"{plant.name}: {plant.height}cm, "
                         f"{plant.age} days old, "
                         f"the flower is {plant.color} {plant.is_bloom()}")
-            elif isinstance(plant, Plant):
+            elif plant.__class__ == Plant:
                 return (f"{plant.name}: {plant.height}cm, "
                         f"{plant.age} days old")
             else:
                 return ("Unkown type")
 
         @staticmethod
-        def disp_leaderboard(garden_list: list):
-            print("The leaderboard is:")
-            garden_list.sort(
-                key=lambda g: GardenManager.GardenStats.get_points(
-                    g.plant_list),
-                reverse=True)
+        def print_scores(garden_list: list) -> None:
+            i = 0
+            print("Garden scores - ", end="")
             for garden in garden_list:
+                if i > 0:
+                    print(", ", end="")
                 points = GardenManager.GardenStats.get_points(
                     garden.plant_list)
-                print(f"{garden.owner_name}: {points}")
+                print(f"{garden.owner_name}: {points}", end="")
+                i += 1
+            print()
 
         @staticmethod
         def get_points(plant_list: list) -> int:
             count = 0
             for plant in plant_list:
-                if (isinstance(plant, PrizeFlower)):
+                if plant.__class__ == PrizeFlower:
                     count += plant.prize_points
             return count
+
+        @staticmethod
+        def height_validation(garden_list: list) -> bool:
+            for garden in garden_list:
+                if GardenManager.GardenStats.get_height(garden.plant_list):
+                    pass
+                else:
+                    return print("Height validation: False")
+                print("Height validation: True")
+
+        @staticmethod
+        def get_height(plant_list: list) -> bool:
+            for plant in plant_list:
+                if plant.height > 60:
+                    return False
+            return True
 
     @classmethod
     def create_garden_network(cls, self) -> None:
@@ -103,6 +120,7 @@ def main():
     carlo_garden = GardenManager("carlo")
     mario_garden = GardenManager("mario")
     giorgio_garden = GardenManager("giorgio")
+    print()
     # Adding plant to garden
     carlo_garden.add_plant(PrizeFlower("rose", 10, 25, "red", 10))
     carlo_garden.add_plant(FloweringPlant("sunflower", 80, 15, "yellow"))
@@ -120,7 +138,8 @@ def main():
     # Viewing the stat of the gardens
     GardenManager.print_stat()
     # Viewing the garden's winner
-    GardenManager.GardenStats.disp_leaderboard(GardenManager.garden_list)
+    GardenManager.GardenStats.height_validation(GardenManager.garden_list)
+    GardenManager.GardenStats.print_scores(GardenManager.garden_list)
 
 
 if __name__ == "__main__":
