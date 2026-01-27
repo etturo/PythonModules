@@ -28,8 +28,8 @@ class GardenManager:
 
     def __init__(self, owner_name: str) -> None:
         self.owner_name = owner_name.capitalize()
-        self.create_garden_network(self)
         self.plant_list = []
+        self.create_garden_network(self)
         print(f"Created {self.owner_name}'s garden succesfully!")
 
     def add_plant(self, plant: Plant) -> None:
