@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 import math
-import sys
 
 
 def main():
@@ -40,8 +39,6 @@ def main():
     print(f"Player at x={coor[0]}, y={coor[1]}, z={coor[2]}")
     x, y, z = coor
     print(f"Coordinates: X={x}, Y={y}, Z={z}")
-
-
 
 
 if __name__ == "__main__":
