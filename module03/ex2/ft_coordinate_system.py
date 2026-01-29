@@ -2,7 +2,7 @@
 import math
 
 
-def main():
+def main() -> None:
     origin = (0, 0, 0)
     coord_1 = (10, 20, 5)
     print(f"Position created: {coord_1}")

@@ -2,7 +2,7 @@
 import sys
 
 
-def main():
+def main() -> None:
     scores = []
     if len(sys.argv) == 1:
         return print(f"No scores provided. "

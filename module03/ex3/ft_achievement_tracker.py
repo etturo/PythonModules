@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-def main():
+def main() -> None:
     alice_ach = {"first_kill",
                  "level_10",
                  "treasure_hunter",
