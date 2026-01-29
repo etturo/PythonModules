@@ -10,7 +10,7 @@ def main() -> None:
     if len(sys.argv) == 1:
         return print(f"Total arguments: {len(sys.argv)}")
     print(f"Arguments received: {len(sys.argv) - 1}")
-    i = 1
+    i: int = 1
     while i < len(sys.argv):
         print(f"Arguments {i}: {sys.argv[i]}")
         i += 1

@@ -3,12 +3,12 @@ import sys
 
 
 def main() -> None:
-    scores = []
+    scores: list = []
     if len(sys.argv) == 1:
         return print(f"No scores provided. "
                      f"Usage: python3 {sys.argv[0]} <score1> <score2> ...")
     try:
-        i = 1
+        i: int = 1
         while i < len(sys.argv):
             scores.append(int(sys.argv[i]))
             i += 1
