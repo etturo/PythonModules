@@ -13,6 +13,8 @@ def main():
                    "boss_slayer",
                    "speed_demon",
                    "perfectionist"}
+    # adding a duplicate value to show that is won't add to the set
+    alice_ach.add("first_kill")
     total_achievements = alice_ach.union(bob_ach, charlie_ach)
     common_achievements = alice_ach.intersection(bob_ach, charlie_ach)
     alice_unique = alice_ach.difference(bob_ach, charlie_ach)
