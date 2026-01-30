@@ -11,7 +11,7 @@ def main() -> None:
         except ValueError as e:
             print(f"Error: {e}")
             return
-    total_items = 0
+    total_items: int = 0
     for key in inventory.keys():
         total_items += inventory[key]
     print(f"Total items in inventory: {total_items}")
@@ -31,6 +31,7 @@ def main() -> None:
             max_key = key
     print(f"Most aboundant: {max_key} ({max_item} units)")
     min_item: int = max_item
+    min_key: str = max_key
     for key in inventory.keys():
         if min_item > inventory[key]:
             min_item = inventory[key]
@@ -66,7 +67,7 @@ def main() -> None:
     print("]\n")
     print("=== Dictionary Properties Demo ===")
     print("Dictionary keys:   [", end="")
-    first = True
+    first: bool = True
     for key in inventory.keys():
         if first is False:
             print(", ", end="")
@@ -74,7 +75,7 @@ def main() -> None:
         first = False
     print("]")
     print("Dictionary values:   [", end="")
-    first = True
+    first: bool = True
     for values in inventory.values():
         if first is False:
             print(", ", end="")
