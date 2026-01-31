@@ -38,7 +38,26 @@ def event_generator() -> Generator[list, None, None]:
 
 def fibonacci():
     num1: int = 0
-    num2: int =
+    num2: int = 1
+    for i in range(10):
+        yield num1
+        temp: int = num1
+        num1 = num2
+        num2 += temp 
+
+
+def prime_numbers():
+    for n in range(2, 10):
+        is_prime: bool = True
+        div: int = 2
+        while div * div <= n:
+            if n % div == 0:
+                is_prime = False
+                break
+            div += 1
+        if is_prime == True:
+                yield n
+
 
 
 def main() -> None:
@@ -73,7 +92,22 @@ def main() -> None:
     print("Memory usage: Constant (streaming)")
     print(f"Processing time: {(end_time - start_time):.3f} seconds")
     print()
-
+    print("=== Generator Demonstration ===")
+    print("Fibonacci sequence (first 10): ", end="")
+    i: int = 0
+    for n in fibonacci():
+        if i != 0:
+            print(", ", end="")
+        print(f"{n}", end="")
+        i += 1
+    print()
+    print("Prime numbers (first 10): ", end="")
+    i: int = 0
+    for n in prime_numbers():
+        if i != 0:
+            print(", ", end="")
+        print(f"{n}", end="")
+        i += 1
 
 
 if __name__ == "__main__":
