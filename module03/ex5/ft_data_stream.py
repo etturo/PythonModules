@@ -43,7 +43,7 @@ def fibonacci():
         yield num1
         temp: int = num1
         num1 = num2
-        num2 += temp 
+        num2 += temp
 
 
 def prime_numbers():
@@ -55,9 +55,8 @@ def prime_numbers():
                 is_prime = False
                 break
             div += 1
-        if is_prime == True:
-                yield n
-
+        if is_prime is True:
+            yield n
 
 
 def main() -> None:
