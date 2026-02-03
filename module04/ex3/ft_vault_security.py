@@ -1,5 +1,5 @@
 #!/urs/bin/env python3
-def main():
+def main() -> None:
     print("Initiating secure vault access...")
     with open("classified_data.txt", "r") as fd:
         print("Vault connection established with failsafe protocols")

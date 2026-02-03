@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-def main():
+def main() -> None:
     print()
     print("Accessing Storage Vault: ancient_fragment.txt")
     with open("ancient_fragment.txt", "r") as fd:

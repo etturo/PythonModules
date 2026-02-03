@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-def main():
+def main() -> None:
     print("Initializing new storage unit: new_discovery.txt")
     with open("new_discovery.txt", "w") as fd:
         print("Storage unit created successfully...\n")

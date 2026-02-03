@@ -2,7 +2,7 @@
 import sys
 
 
-def main():
+def main() -> None:
     sys.stdout.write("Input Stream active. Enter archivist ID: ")
     sys.stdout.flush()
     name = sys.stdin.readline()
