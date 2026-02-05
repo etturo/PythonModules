@@ -18,6 +18,7 @@ class DataProcessor(ABC):
 
 class NumericProcessor(DataProcessor):
     def __init__(self):
+        super().__init__()
         print("Initializing Numeric Processor...")
 
     def process(self, data: Any) -> str:
@@ -42,13 +43,14 @@ class NumericProcessor(DataProcessor):
 
 class TextProcessor(DataProcessor):
     def __init__(self):
+        super().__init__()
         print("Initializing Text Processor...")
 
     def process(self, data: Any) -> str:
         if self.validate(data) is False:
             return self.format_output("[ERROR] non text data")
         strlen: int = len(data)
-        words: list[str] = data.split(' ')
+        words: List[str] = data.split(' ')
         word_count: int = len(words)
         result: str = f"Processed text: {strlen} character, {word_count} words"
         return self.format_output(result)
@@ -64,6 +66,7 @@ class TextProcessor(DataProcessor):
 
 class LogProcessor(DataProcessor):
     def __init__(self):
+        super().__init__()
         print("Initializing Log Processor...")
 
     def process(self, data: Any) -> str:
@@ -76,7 +79,8 @@ class LogProcessor(DataProcessor):
             error_type, message = data.split(':', 1)
             clean_error: str = error_type.strip()
             clean_message: str = message.strip()
-            result = clean_error + " level detected " + clean_message
+            result: Optional[str] = clean_error + " level detected " \
+                + clean_message
             return self.format_output(result)
         except ValueError:
             return ("Failed Parsing")
@@ -94,9 +98,13 @@ class LogProcessor(DataProcessor):
 
 
 def main():
-    numeric_list: list[int] = [1, 2, 3, 4, 5]
-    text: str = "Hello Nexus World"
-    log: str = "ERROR: Connection timeout"
+    config: Dict[str, Any] = {
+        "text": "Hello Nexus World",
+        "log": "ERROR: Connection timeout"
+    }
+    numeric_list: List[Union[int, float]] = [1, 2, 3, 4, 5]
+    text: str = config["text"]
+    log: str = config["log"]
     processor = NumericProcessor()
     print(f"Processing data: {numeric_list}")
     print(processor.process(numeric_list))
@@ -107,6 +115,22 @@ def main():
     print()
     processor = LogProcessor()
     print(processor.process(log))
+    print()
+    data = [
+        [1, 2, 3, 4, 5],
+        "Hello Nexus World",
+        "ERROR: connection timeout"
+    ]
+    processor = [
+        NumericProcessor(),
+        TextProcessor(),
+        LogProcessor()
+    ]
+    i = 1
+    print("Processing multiple data types through same interface...")
+    for processor, data in zip(processor, data):
+        print(f"Result {i}: {processor.process(data)}")
+        i += 1
     print()
     print("Foundation systems online. Nexus ready for advanced streams.")
 
