@@ -17,7 +17,7 @@ class DataProcessor(ABC):
 
 
 class NumericProcessor(DataProcessor):
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
         print("Initializing Numeric Processor...")
 
@@ -30,7 +30,7 @@ class NumericProcessor(DataProcessor):
         return self.format_output(f"Processed {lenght} numeric values,"
                                   f" sum={total}, avg={avarage:.1f}")
 
-    def validate(self, data) -> bool:
+    def validate(self, data: Any) -> bool:
         if isinstance(data, list) and all(
            isinstance(x, (int, float)) for x in data
            ) and len(data) > 0:
@@ -42,7 +42,7 @@ class NumericProcessor(DataProcessor):
 
 
 class TextProcessor(DataProcessor):
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
         print("Initializing Text Processor...")
 
@@ -55,7 +55,7 @@ class TextProcessor(DataProcessor):
         result: str = f"Processed text: {strlen} character, {word_count} words"
         return self.format_output(result)
 
-    def validate(self, data) -> bool:
+    def validate(self, data: Any) -> bool:
         if isinstance(data, str):
             print("Validation: Text data verified")
             return True
@@ -65,7 +65,7 @@ class TextProcessor(DataProcessor):
 
 
 class LogProcessor(DataProcessor):
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
         print("Initializing Log Processor...")
 
@@ -85,7 +85,7 @@ class LogProcessor(DataProcessor):
         except ValueError:
             return ("Failed Parsing")
 
-    def validate(self, data) -> bool:
+    def validate(self, data: Any) -> bool:
         if isinstance(data, str) and ":" in data:
             print("Validation: Log data verified")
             return True
@@ -97,7 +97,7 @@ class LogProcessor(DataProcessor):
         return f"[ALERT] {result}"
 
 
-def main():
+def main() -> None:
     config: Dict[str, Any] = {
         "text": "Hello Nexus World",
         "log": "ERROR: Connection timeout"
