@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-from typing import Any, List, Dict, Union, Optional
+from typing import Any, List, Dict, Union, Optional, Tuple
 from abc import ABC, abstractmethod
 
 
 class DataStream(ABC):
     def __init__(self, stream_id: str) -> None:
-        self.stream_id = stream_id
-        self.stream_type = "Generic"
+        self.stream_id: str = stream_id
+        self.stream_type: str = "Generic"
 
     @abstractmethod
     def process_batch(self, data_batch: List[Any]) -> str:
@@ -23,24 +23,24 @@ class DataStream(ABC):
 class SensorStream(DataStream):
     def __init__(self, stream_id: str) -> None:
         super().__init__(stream_id)
-        self.stream_type = "Environmental Data"
+        self.stream_type: str = "Environmental Data"
 
     def process_batch(self, data_batch: List[Any]) -> str:
-        temps = []
+        temps: List[float] = []
         for item in data_batch:
             if isinstance(item, str) and item.startswith("temp:"):
                 temps.append(float(item.split(":")[1]))
-        avg_temp = sum(temps) / len(temps) if temps else 0
+        avg_temp: float = sum(temps) / len(temps) if temps else 0
         return (f"Sensor analysis: {len(data_batch)} readings processed, "
                 f"avg temp: {avg_temp}°C")
 
     def filter_data(self, data_batch: List[Any], criteria: Optional[str]
                     = None) -> List[Any]:
         if criteria == "high_pass":
-            temps = []
+            temps: List[float] = []
             for item in data_batch:
                 if isinstance(item, str) and item.startswith("temp:"):
-                    temp_val = float(item.split(":")[1])
+                    temp_val: float = float(item.split(":")[1])
                     if temp_val > 20:
                         temps.append(temp_val)
             return temps
@@ -50,32 +50,32 @@ class SensorStream(DataStream):
 class TransactionStream(DataStream):
     def __init__(self, stream_id: str) -> None:
         super().__init__(stream_id)
-        self.stream_type = "Financial Data"
+        self.stream_type: str = "Financial Data"
 
     def process_batch(self, data_batch: List[Any]) -> str:
-        net_flow = 0
-        count = 0
+        net_flow: int = 0
+        count: int = 0
         for item in data_batch:
             if isinstance(item, str) and ":" in item:
-                op, val = item.split(":")
-                val = int(val)
+                op, val_str = item.split(":")
+                val: int = int(val_str)
                 if op == "buy":
                     net_flow += val
                 elif op == "sell":
                     net_flow -= val
                 count += 1
-        sign = "+" if net_flow >= 0 else ""
+        sign: str = "+" if net_flow >= 0 else ""
         return (f"Transaction analysis: {count} operations, "
                 f"net flow: {sign}{net_flow} units")
 
     def filter_data(self, data_batch: List[Any], criteria: Optional[str] =
                     None) -> List[Any]:
         if criteria == "high_value":
-            values = []
+            values: List[int] = []
             for item in data_batch:
                 if isinstance(item, str) and ":" in item:
-                    op, val = item.split(":")
-                    val = int(val)
+                    op, val_str = item.split(":")
+                    val: int = int(val_str)
                     if abs(val) > 100:
                         values.append(val)
             return values
@@ -85,11 +85,11 @@ class TransactionStream(DataStream):
 class EventStream(DataStream):
     def __init__(self, stream_id: str) -> None:
         super().__init__(stream_id)
-        self.stream_type = "System Events"
+        self.stream_type: str = "System Events"
 
     def process_batch(self, data_batch: List[Any]) -> str:
-        events = [x for x in data_batch if isinstance(x, str)]
-        errors = [e for e in events if "error" in e.lower()]
+        events: List[str] = [x for x in data_batch if isinstance(x, str)]
+        errors: List[str] = [e for e in events if "error" in e.lower()]
         return (f"Event analysis: {len(events)} events, "
                 f"{len(errors)} error detected")
 
@@ -102,7 +102,7 @@ class StreamProcessor:
             print("Processing "
                   f"{stream.stream_type.split()[0].lower()}"
                   f"batch: [{', '.join(data)}]")
-            result = stream.process_batch(data)
+            result: str = stream.process_batch(data)
             print(result)
 
         except Exception as e:
@@ -110,11 +110,11 @@ class StreamProcessor:
 
     def process_multiple_streams(self, streams: List[DataStream],
                                  data_batches: List[List[Any]]) -> None:
-        sensor_data = []
-        trans_data = []
-        event_data = []
-        sensor_stream = None
-        trans_stream = None
+        sensor_data: List[Any] = []
+        trans_data: List[Any] = []
+        event_data: List[Any] = []
+        sensor_stream: Optional[SensorStream] = None
+        trans_stream: Optional[TransactionStream] = None
 
         for stream, data in zip(streams, data_batches):
             if isinstance(stream, SensorStream):
@@ -132,8 +132,8 @@ class StreamProcessor:
 
         print()
 
-        large_trans_count = 0
-        critical_sensor_count = 0
+        large_trans_count: int = 0
+        critical_sensor_count: int = 0
         if sensor_stream:
             critical_sensor_count = len(sensor_stream.filter_data(sensor_data,
                                                                   "high_pass"))
@@ -147,20 +147,20 @@ class StreamProcessor:
 
 
 def main() -> None:
-    sensor = SensorStream("SENSOR_001")
-    sensor_data = ["temp:22.5", "humidity:65", "pressure:1013"]
+    sensor: SensorStream = SensorStream("SENSOR_001")
+    sensor_data: List[str] = ["temp:22.5", "humidity:65", "pressure:1013"]
     StreamProcessor().process_stream(sensor, sensor_data)
 
     print()
 
-    trans = TransactionStream("TRANS_001")
-    trans_data = ["buy:100", "sell:150", "buy:75"]
+    trans: TransactionStream = TransactionStream("TRANS_001")
+    trans_data: List[str] = ["buy:100", "sell:150", "buy:75"]
     StreamProcessor().process_stream(trans, trans_data)
 
     print()
 
-    event = EventStream("EVENT_001")
-    event_data = ["login", "error", "logout"]
+    event: EventStream = EventStream("EVENT_001")
+    event_data: List[str] = ["login", "error", "logout"]
     StreamProcessor().process_stream(event, event_data)
 
     print()
@@ -170,16 +170,18 @@ def main() -> None:
 
     print()
 
-    new_sensor_data = ["temp:25.0", "temp:30.5", "temp:18.0",
-                       "humidity:70", "humidity:60", "humidity:55",
-                       "pressure:1010", "pressure:1020", "pressure:1005"]
-    new_trans_data = ["buy:200", "sell:50", "buy:300", "sell:400", "buy:150"]
-    new_event_data = ["startup", "error:disk full", "shutdown",
-                      "error:network"]
+    new_sensor_data: List[str] = ["temp:25.0", "temp:30.5", "temp:18.0",
+                                  "humidity:70", "humidity:60", "humidity:55",
+                                  "pressure:1010", "pressure:1020",
+                                  "pressure:1005"]
+    new_trans_data: List[str] = ["buy:200", "sell:50", "buy:300", "sell:400",
+                                 "buy:150"]
+    new_event_data: List[str] = ["startup", "error:disk full", "shutdown",
+                                 "error:network"]
 
-    streams = [(sensor, new_sensor_data),
-               (trans, new_trans_data),
-               (event, new_event_data)]
+    streams: List[Tuple[DataStream, List[str]]] = [(sensor, new_sensor_data),
+                                                   (trans, new_trans_data),
+                                                   (event, new_event_data)]
     StreamProcessor().process_multiple_streams([s[0] for s in streams],
                                                [s[1] for s in streams])
 
