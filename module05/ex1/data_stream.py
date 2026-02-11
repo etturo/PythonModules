@@ -37,8 +37,13 @@ class SensorStream(DataStream):
     def filter_data(self, data_batch: List[Any], criteria: Optional[str]
                     = None) -> List[Any]:
         if criteria == "high_pass":
-            return [x for x in data_batch if isinstance(x, (int, float))
-                    and x > 20]
+            temps = []
+            for item in data_batch:
+                if isinstance(item, str) and item.startswith("temp:"):
+                    temp_val = float(item.split(":")[1])
+                    if temp_val > 20:
+                        temps.append(temp_val)
+            return temps
         return data_batch
 
 
@@ -66,8 +71,14 @@ class TransactionStream(DataStream):
     def filter_data(self, data_batch: List[Any], criteria: Optional[str] =
                     None) -> List[Any]:
         if criteria == "high_value":
-            return [x for x in data_batch if isinstance(x, (int, float)) and
-                    abs(x) > 100]
+            values = []
+            for item in data_batch:
+                if isinstance(item, str) and ":" in item:
+                    op, val = item.split(":")
+                    val = int(val)
+                    if abs(val) > 100:
+                        values.append(val)
+            return values
         return data_batch
 
 
@@ -102,14 +113,18 @@ class StreamProcessor:
         sensor_data = []
         trans_data = []
         event_data = []
+        sensor_stream = None
+        trans_stream = None
 
         for stream, data in zip(streams, data_batches):
             if isinstance(stream, SensorStream):
-                sensor_data.append(data)
+                sensor_data.extend(data)
+                sensor_stream = stream
             elif isinstance(stream, TransactionStream):
-                trans_data.append(data)
+                trans_data.extend(data)
+                trans_stream = stream
             elif isinstance(stream, EventStream):
-                event_data.append(data)
+                event_data.extend(data)
 
         print(f"- Sensor Data: {len(sensor_data)} reading processes")
         print(f"- Transaction Data: {len(trans_data)} operations processed")
@@ -117,9 +132,18 @@ class StreamProcessor:
 
         print()
 
-        critical_sensor = [for batch in streams if batch.filter_data(data, "high_pass")]
+        large_trans_count = 0
+        critical_sensor_count = 0
+        if sensor_stream:
+            critical_sensor_count = len(sensor_stream.filter_data(sensor_data,
+                                                                  "high_pass"))
+        if trans_stream:
+            large_trans_count = len(trans_stream.filter_data(trans_data,
+                                                             "high_value"))
         print("Stream filtering active: High-priority data only")
-
+        print("Filtered Results: "
+              f"{critical_sensor_count} critical sensor alerts, "
+              f"{large_trans_count} large transactions")
 
 
 def main() -> None:
@@ -146,11 +170,22 @@ def main() -> None:
 
     print()
 
-    streams = [(sensor, sensor_data),
-               (trans, trans_data),
-               (event, event_data)]
+    new_sensor_data = ["temp:25.0", "temp:30.5", "temp:18.0",
+                       "humidity:70", "humidity:60", "humidity:55",
+                       "pressure:1010", "pressure:1020", "pressure:1005"]
+    new_trans_data = ["buy:200", "sell:50", "buy:300", "sell:400", "buy:150"]
+    new_event_data = ["startup", "error:disk full", "shutdown",
+                      "error:network"]
+
+    streams = [(sensor, new_sensor_data),
+               (trans, new_trans_data),
+               (event, new_event_data)]
     StreamProcessor().process_multiple_streams([s[0] for s in streams],
                                                [s[1] for s in streams])
+
+    print()
+
+    print("All streams processed successfully. Nexus throughput optimal.")
 
 
 if __name__ == "__main__":
