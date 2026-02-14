@@ -10,4 +10,4 @@ __pycache__/
 .venv/
 venv/
 text
-*/main.py
+**/main.py
