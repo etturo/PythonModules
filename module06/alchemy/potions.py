@@ -1,0 +1,25 @@
+#!/usr/bin/env python3
+import elements
+
+
+def healing_potion():
+    return (f"Healing potion brewed with {elements.create_fire()} "
+            f"and {elements.create_water()}")
+
+
+def strenght_potion():
+    return (f"Strenght potion brewed with {elements.create_earth()} "
+            f"and {elements.create_fire()}")
+
+
+def invisibility_potion():
+    return (f"Invisibility potion brewed with {elements.create_air()} "
+            f"and {elements.create_water()}")
+
+
+def wisdom_potion():
+    return ("Wisdom potion brewed with all elements: "
+            f"{elements.create_fire()}"
+            f"{elements.create_water()}"
+            f"{elements.create_earth()}"
+            f"{elements.create_air()}")
