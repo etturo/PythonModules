@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 import alchemy.elements
-from alchemy.elements import create_fire
-from alchemy.potions import healing_potion as heal
 from alchemy.elements import create_fire, create_water
+from alchemy.potions import healing_potion as heal
+
 
 if __name__ == "__main__":
     print("\n=== Import Transmutation Mastery ===\n")
@@ -24,7 +24,7 @@ if __name__ == "__main__":
     print()
 
     print("Method 4 - Multiple imports:")
-    print(f"create_water(): "
-          f"{create_water()}")
+    print(f"create_earth(): "
+          f"{alchemy.elements.create_earth()}")
     print(f"create_fire(): {create_fire()}")
-    print(f"strenght_potion(): {stren}")
+    print(f"strenght_potion(): {alchemy.strenght_potion()}")
