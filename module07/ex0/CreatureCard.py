@@ -30,5 +30,8 @@ class CreatureCard(Card):
                     'effect': 'Nothing happened'}
 
     def attack_target(self,
-                      target) -> dict:
-        pass
+                      target: Card) -> dict:
+        return {'attacker': self.get_card_info()['name'],
+                'target': target.get_card_info()['name'],
+                'damage_dealt': self.get_card_info()['attack'],
+                'combat_resolved': True}
