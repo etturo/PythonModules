@@ -9,11 +9,26 @@ class ArtifactCard(Card):
                  rarity: str,
                  durability: int,
                  effect: str):
-        pass
+        super().__init__(name, cost, rarity)
+        self._info = {
+            'name': name,
+            'cost': cost,
+            'rarity': rarity,
+            'durability': durability,
+            'effect': effect,
+            'type': "Artifact"
+        }
 
     def play(self,
-             game_stat: dict) -> dict:
-        pass
+             game_state: dict) -> dict:
+        if super().is_playable(game_state['mana']) is True:
+            return {'card_played': self.get_card_info()['name'],
+                    'mana_used': self.get_card_info()['cost'],
+                    'effect': self._info['effect']}
+        else:
+            return {'card_played': 'None',
+                    'mana_used': 0,
+                    'effect': 'Nothing happened'}
 
     def activate_ability(self) -> dict:
         pass

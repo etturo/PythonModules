@@ -8,16 +8,25 @@ class SpellCard(Card):
                  cost: int,
                  rarity: str,
                  effect_type: str):
+        super().__init__(name, cost, rarity)
         self.effect_type = effect_type
         self._info = {'name': name,
                       'cost': cost,
                       'rarity': rarity,
-                      'effect_type': self.effect_type}
+                      'effect': self.effect_type,
+                      'type': "Spell"}
         return
 
     def play(self,
              game_state: dict) -> dict:
-        return super().play(game_state)
+        if super().is_playable(game_state['mana']) is True:
+            return {'card_played': self.get_card_info()['name'],
+                    'mana_used': self.get_card_info()['cost'],
+                    'effect': self.get_card_info()['effect']}
+        else:
+            return {'card_played': 'None',
+                    'mana_used': 0,
+                    'effect': 'Nothing happened'}
 
     def resolve_effect(slef,
                        target: list) -> dict:

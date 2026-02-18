@@ -26,21 +26,21 @@ class CardGenerator:
 
         self._spells = [
             {"name": "Lightning Bolt", "cost": 3, "rarity": "Common",
-             "effect_type": "damage"},
+             "effect_type": "Deals 3 damage to target"},
             {"name": "Healing Potion", "cost": 2, "rarity": "Common",
-             "effect_type": "heal"},
+             "effect_type": "Restores 3 health to target"},
             {"name": "Fireball", "cost": 4, "rarity": "Uncommon",
-             "effect_type": "damage"},
+             "effect_type": "Deals 6 damage to target"},
             {"name": "Shield Spell", "cost": 1, "rarity": "Common",
-             "effect_type": "buff"},
+             "effect_type": "Gives +2 health to target"},
             {"name": "Meteor", "cost": 8, "rarity": "Legendary",
-             "effect_type": "damage"},
+             "effect_type": "Deals 10 damage to all enemies"},
             {"name": "Ice Shard", "cost": 2, "rarity": "Common",
-             "effect_type": "damage"},
+             "effect_type": "Freezes target for 1 turn"},
             {"name": "Divine Light", "cost": 5, "rarity": "Rare",
-             "effect_type": "heal"},
+             "effect_type": "Fully restores health to target"},
             {"name": "Magic Missile", "cost": 1, "rarity": "Common",
-             "effect_type": "damage"},
+             "effect_type": "Deals 1 damage to random enemy"},
         ]
 
         self._artifacts = [
