@@ -1,10 +1,5 @@
 #!/usr/bin/env python3
 from Card import Card
-from enum import Enum
-
-
-class CreatureName(Enum):
-    "Fire Dragon" : 1
 
 
 class CreatureCard(Card):
@@ -14,16 +9,25 @@ class CreatureCard(Card):
                  rarity: str,
                  attack: int,
                  health: int) -> None:
-        self.name: str = name
-        self.cost: int = cost
-        self.rarity: str = rarity
-        self.attack: int = attack
-        self.health: int = health
+        self._info = {
+            'name': name,
+            'cost': cost,
+            'rarity': rarity,
+            'attack': attack,
+            'health': health
+        }
         return
 
     def play(self,
              game_state: dict) -> dict:
-        pass
+        if super().is_playable(game_state['mana']) is True:
+            return {'card_played': self.get_card_info()['name'],
+                    'mana_used': self.get_card_info()['cost'],
+                    'effect': 'Creature summoned to battlefield'}
+        else:
+            return {'card_played': 'None',
+                    'mana_used': 0,
+                    'effect': 'Nothing happened'}
 
     def attack_target(self,
                       target) -> dict:
