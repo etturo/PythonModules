@@ -30,3 +30,6 @@ class Card(ABC):
         if self.get_card_info()['cost'] <= available_mana:
             return True
         return False
+
+    def __repr__(self):
+        return self._info['name']
