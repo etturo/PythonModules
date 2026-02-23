@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-from .CardFactory import CardFactory
-from .GameStrategy import GameStrategy
-from .AggressiveStrategy import AggressiveStrategy
+from ex3.CardFactory import CardFactory
+from ex3.GameStrategy import GameStrategy
+from ex3.AggressiveStrategy import AggressiveStrategy
 from ex0 import Card
-from .FantasyCardFactory import FantasyCardFactory
+from ex3.FantasyCardFactory import FantasyCardFactory
 
 
 class GameEngine:

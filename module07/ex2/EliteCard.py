@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-from ex0 import Card
-from .Magical import Magical
-from .Combatable import Combatable
+from ex0.Card import Card
+from ex2.Magical import Magical
+from ex2.Combatable import Combatable
 
 
 class EliteCard(Card, Magical, Combatable):

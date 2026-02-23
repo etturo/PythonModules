@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
-from ex0 import Card, CreatureCard
-from .ArtifactCard import ArtifactCard
-from .SpellCard import SpellCard
+from ex0.Card import Card
+from ex0.CreatureCard import CreatureCard
+from ex1.ArtifactCard import ArtifactCard
+from ex1.SpellCard import SpellCard
 
 
 class Deck():

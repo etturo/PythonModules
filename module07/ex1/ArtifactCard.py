@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from ex0 import Card
+from ex0.Card import Card
 
 
 class ArtifactCard(Card):

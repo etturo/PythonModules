@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from .CardFactory import CardFactory
+from ex3.CardFactory import CardFactory
 from ex0 import Card
 import random
 

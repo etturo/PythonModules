@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from .EliteCard import EliteCard
+from ex2.EliteCard import EliteCard
 
 
 if __name__ == "__main__":

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from .Deck import Deck, CreatureCard, ArtifactCard, SpellCard
+from ex1.Deck import Deck, CreatureCard, ArtifactCard, SpellCard
 from card_generator import CardGenerator
 
 if __name__ == "__main__":
