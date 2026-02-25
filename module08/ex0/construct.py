@@ -28,7 +28,7 @@ if __name__ == "__main__":
 
         # Instructions to create and activate venv
         print("To enter the construct, run:")
-        print("python -m venv matrix_env")
+        print("python3 -m venv matrix_env")
         print("source matrix_env/bin/activate # On Unix")
         print("matrix_env")
         print("Scripts")
