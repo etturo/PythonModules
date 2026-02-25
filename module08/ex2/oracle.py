@@ -1,4 +1,4 @@
-#!/usr/bin/env pytohn3
+#!/usr/bin/env python3
 import os
 
 
@@ -23,6 +23,10 @@ def main():
         print("Please ensure your .env file is properly configured.")
         print("Required variables: MATRIX_MODE, DATABASE_URL, API_KEY,"
               " LOG_LEVEL, ZION_ENDPOINT")
+        print("To install dependencies with Poetry:")
+        print('export PATH="$HOME/.local/bin:$PATH" && poetry --version')
+        print("To install with pip:")
+        print("pip install -r requirements.txt")
         return 1
 
     print("Configuration loaded:")
