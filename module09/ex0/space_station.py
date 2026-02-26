@@ -11,12 +11,19 @@ class SpaceStation(BaseModel):
     power_level: float
     oxygen_level: float
     last_maintenance: datetime
-    is_operational: bool
+    is_operational: bool = True
     notes: Optional[str]
+
+    @model_validator(mode='after')
+    def validate(self):
+        
 
 
 def main():
+    print("\nSpace Station Data Validation")
+    print("=" * 42)
 
+    SpaceStation
 
 
 
